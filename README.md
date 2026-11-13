@@ -1,20 +1,22 @@
 # GPU Memory Management：从 MoonBright 出发的近五年论文索引
 
-检索窗口：**2021-10-10 至 2026-10-10**。最近核验：2026-10-10。
+检索窗口：**2021-10-10 至 2026-10-10**。最近增补核验：2026-11-13（仅新增两篇，未重查全库）。
 
-主目录收录 **45 篇论文（含 MoonBright 本身，其他相关论文 44 篇）**，另列 **9 条相关会议 / 预印本记录**。范围以系统与体系结构顶会为核心，并纳入与 GPU 内存直接相关的 MLSys、ICML、ICDE 和 PVLDB / VLDB 工作。具体会议口径见[检索方法](docs/search_method.md)，不将所有“GPU memory”论文都视为与 MoonBright 同一层次。
+主目录收录 **46 篇论文（含 MoonBright 本身，其他相关论文 45 篇）**，另列 **10 条相关会议 / 预印本记录**。范围以系统与体系结构顶会为核心，并纳入与 GPU 内存直接相关的 MLSys、ICML、ICDE 和 PVLDB / VLDB 工作。具体会议口径见[检索方法](docs/search_method.md)，不将所有“GPU memory”论文都视为与 MoonBright 同一层次。
 
-其中 **24 篇**属于分配器、UVM、多 GPU 页管理和地址翻译，**21 篇**属于应用层、容量扩展或测量研究。
+其中 **24 篇**属于分配器、UVM、多 GPU 页管理和地址翻译，**22 篇**属于应用层、容量扩展或测量研究。
+
+2026-11-13 增补：[Medusa · ASPLOS 2025](docs/papers_zh.md#medusa) 与 [UMA Memory Sharing / libumsh · arXiv 2026](docs/supplement_zh.md#libumsh)。后者的 arXiv 页面标注已录用 EuroSys 2027；按现有时间窗口先列补充区。
 
 **先读这条主线：MoonBright → GMLake → vAttention → Gallatin → SoftWalker。** 前四篇分别帮助理解映射控制路径、碎片、连续虚拟地址和设备端分配；SoftWalker 用于对照 GPU 上构造页表与查询页表的区别。
 
 | 文档 | 内容 |
 |---|---|
 | [中文综述与阅读路线](docs/survey_zh.md) | MoonBright 定位、机制对照、复现条件、可研究问题 |
-| [45 篇逐篇笔记](docs/papers_zh.md) | 正式标题、会议年份、机制、与 MoonBright 的关系、原文及代码入口 |
+| [46 篇逐篇笔记](docs/papers_zh.md) | 正式标题、会议年份、机制、与 MoonBright 的关系、原文及代码入口 |
 | [补充文献](docs/supplement_zh.md) | DREAM / GPUVM、AMD SVM、Grace Hopper、vTensor 等 |
 | [检索方法与边界](docs/search_method.md) | 日期口径、会议清单、去重、核验限制 |
-| [机器可读索引](data/papers.json) | 54 条结构化记录，可按会议、类别、年份及关联层次筛选 |
+| [机器可读索引](data/papers.json) | 56 条结构化记录，可按会议、类别、年份及关联层次筛选 |
 
 这里保存的是**中文整理、书目信息与原文 / PDF / 代码链接**；未镜像论文 PDF 或第三方代码。未做 artifact 复现，也不把跨论文报告的加速比直接排序。
 
@@ -26,7 +28,7 @@
 | [UVM、缺页、预取与超额订阅](#uvm) | 6 |
 | [多 GPU 页管理与显存共享](#multi_gpu) | 4 |
 | [页表遍历、TLB 与地址翻译](#translation) | 9 |
-| [LLM KV cache、服务内存与交接](#serving) | 12 |
+| [LLM KV cache、服务内存与交接](#serving) | 13 |
 | [训练卸载与 GPU–CPU–存储层级](#training_storage) | 5 |
 | [内存行为测量与诊断](#measurement) | 2 |
 | [压缩及其他应用容量管理](#capacity) | 2 |
@@ -111,6 +113,7 @@
 | [InfiniGen](docs/papers_zh.md#infinigen) | OSDI 2024 | 预测后续 attention 所需的重要 KV 子集，动态取回缓存，减少 GPU 常驻容量。 | [原文](https://www.usenix.org/conference/osdi24/presentation/lee) |
 | [FlexGen](docs/papers_zh.md#flexgen) | ICML 2023 | 联合规划 GPU、CPU 与存储之间的权重、激活和 KV 数据流，提高有限显存下的批量推理吞吐。 | [原文](https://proceedings.mlr.press/v202/sheng23a.html) · [代码](https://github.com/FMInference/FlexGen) |
 | [AQUA](docs/papers_zh.md#aqua) | ASPLOS 2025 | 降低抢占式 LLM 服务中推理状态换出的成本，使突发请求下的时间片调度更可行。 | [原文](https://arxiv.org/abs/2407.21255) · [DOI](https://doi.org/10.1145/3676641.3715983) |
+| [Medusa](docs/papers_zh.md#medusa) | ASPLOS 2025 | 离线物化 CUDA Graph 及 KV cache 初始化所需的显存画像，在线恢复图并修复参数和 kernel 地址，减少冷启动中的重复 profiling 与 graph capture。 | [原文](https://doi.org/10.1145/3669940.3707285) · [PDF](https://minhui-xie.github.io/papers/asplos25-medusa.pdf) · [代码](https://github.com/thustorage/Medusa) |
 
 <a id="training_storage"></a>
 
@@ -150,7 +153,7 @@
 
 ## 使用索引
 
-`data/papers.json` 中，`scope=main` 对应主目录；`scope=supplement` 不计入 45 篇。`relation_level` 区分基准论文、直接分配器研究、底层相邻机制、应用层和测量工具。缺失的 DOI / PDF / 代码字段保留为 `null`，含义是本次未确认，不能据此断言作者没有公开材料。
+`data/papers.json` 中，`scope=main` 对应主目录；`scope=supplement` 不计入 46 篇。`relation_level` 区分基准论文、直接分配器研究、底层相邻机制、应用层和测量工具。缺失的 DOI / PDF / 代码字段保留为 `null`，含义是本次未确认，不能据此断言作者没有公开材料。
 
 例如，使用 Python 筛选 2025 年以来的底层研究：
 

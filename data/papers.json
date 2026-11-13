@@ -1,16 +1,16 @@
 {
   "schema_version": "1.0",
   "title": "GPU Memory Management: papers related to MoonBright",
-  "updated_at": "2026-10-10",
+  "updated_at": "2026-11-13",
   "window": {
     "start": "2021-10-10",
     "end": "2026-10-10",
     "basis": "正式会议时间；预印本在补充区按公开年份归档"
   },
   "counts": {
-    "main": 45,
-    "supplement": 9,
-    "main_excluding_moonbright": 44
+    "main": 46,
+    "supplement": 10,
+    "main_excluding_moonbright": 45
   },
   "main_venues": [
     "ASPLOS",
@@ -777,6 +777,25 @@
       "relation_level": "application"
     },
     {
+      "id": "medusa",
+      "title": "Medusa: Accelerating Serverless LLM Inference with Materialization",
+      "venue": "ASPLOS",
+      "year": 2025,
+      "category": "serving",
+      "scope": "main",
+      "mechanism_zh": "离线物化 CUDA Graph 及 KV cache 初始化所需的显存画像，在线恢复图并修复参数和 kernel 地址，减少冷启动中的重复 profiling 与 graph capture。",
+      "relation_to_moonbright_zh": "应用运行时层相关：关注 LLM 服务冷启动中的状态恢复与内存初始化，可用于分析分配 / 映射成本在启动路径中的占比。",
+      "implementation_zh": "vLLM / CUDA Graph 运行时；初始化画像及恢复状态需与目标模型、GPU 和软件环境匹配，论文实验使用 A100。",
+      "primary_url": "https://doi.org/10.1145/3669940.3707285",
+      "doi": "10.1145/3669940.3707285",
+      "pdf_url": "https://minhui-xie.github.io/papers/asplos25-medusa.pdf",
+      "code_url": "https://github.com/thustorage/Medusa",
+      "verification_note_zh": "依据作者公开的 ASPLOS 2025 PDF、首页 DOI 与 artifact 附录核验。ACM PDF 直链返回 403，采用作者托管的同 DOI 版本；未运行实验。",
+      "verified_on": "2026-11-13",
+      "short_name": "Medusa",
+      "relation_level": "application"
+    },
+    {
       "id": "g10",
       "title": "G10: Enabling An Efficient Unified GPU Memory and Storage Architecture with Smart Tensor Migrations",
       "venue": "MICRO",
@@ -948,6 +967,26 @@
       "verified_on": "2026-10-10",
       "short_name": "CLM",
       "relation_level": "application"
+    },
+    {
+      "id": "libumsh",
+      "title": "Characterizing CPU-GPU Memory Sharing over Unified Memory Architecture",
+      "venue": "arXiv",
+      "year": 2026,
+      "category": "supplement",
+      "scope": "supplement",
+      "mechanism_zh": "将 UMA 上的 CPU–GPU 共享拆分为数据传输与控制同步，比较页大小、缓存策略和一致性支持，并以 libumsh 按平台与访问语义选择正确且高效的共享实现。",
+      "relation_to_moonbright_zh": "统一物理内存共享与可见性 / 同步开销的测量补充，帮助区分页表设置、缓存一致性和数据移动成本。",
+      "implementation_zh": "真实 UMA 平台测量与运行时库；主实验覆盖 Intel Raptor / Arrow / Lunar 与 NVIDIA Orin，另扩展到 DGX Spark。",
+      "primary_url": "https://arxiv.org/abs/2610.13125",
+      "doi": "10.48550/arXiv.2610.13125",
+      "pdf_url": "https://arxiv.org/pdf/2610.13125",
+      "code_url": "https://github.com/XpuOS/libumsh",
+      "verification_note_zh": "依据 arXiv 页面、22 页 PDF 与作者代码入口核验。v1 于 2026-10-09 公开，arXiv 页面注明已录用 EuroSys 2027；会议时间超出检索窗口，暂按 2026 年预印本列补充区，后续更新同一记录；未运行实验。",
+      "venue_source_url": "https://arxiv.org/abs/2610.13125",
+      "verified_on": "2026-11-13",
+      "short_name": "UMA Memory Sharing / libumsh",
+      "relation_level": "supplement"
     },
     {
       "id": "dream",

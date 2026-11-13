@@ -2,7 +2,7 @@
 
 [返回首页](../README.md) · [机制综述](survey_zh.md) · [补充文献](supplement_zh.md)
 
-共 45 篇，包含 MoonBright。按研究层次排列；摘要为中文归纳，不是论文原文翻译，也不是复现实验结论。实现层次用于初筛，不代表任意驱动、GPU 或框架版本均可直接运行。
+共 46 篇，包含 MoonBright。按研究层次排列；摘要为中文归纳，不是论文原文翻译，也不是复现实验结论。实现层次用于初筛，不代表任意驱动、GPU 或框架版本均可直接运行。
 
 # 分配器、虚拟地址与碎片
 
@@ -501,6 +501,20 @@
 - **与 MoonBright 的关系：** 显存分页与服务调度相关；着重 scale-up GPU 域内的数据搬运。
 - **实现层次 / 复现条件：** 多 GPU 服务软件；依赖 scale-up 互连条件。
 - **核验边界：** 依据论文、会议页面或作者页面核验；未运行实验。
+
+
+<a id="medusa"></a>
+
+## Medusa · ASPLOS 2025
+
+**Medusa: Accelerating Serverless LLM Inference with Materialization**
+
+[原文](https://doi.org/10.1145/3669940.3707285) · [PDF](https://minhui-xie.github.io/papers/asplos25-medusa.pdf) · [代码](https://github.com/thustorage/Medusa)
+
+- **核心机制：** 离线物化 CUDA Graph 及 KV cache 初始化所需的显存画像，在线恢复图并修复参数和 kernel 地址，减少冷启动中的重复 profiling 与 graph capture。
+- **与 MoonBright 的关系：** 应用运行时层相关：关注 LLM 服务冷启动中的状态恢复与内存初始化，可用于分析分配 / 映射成本在启动路径中的占比。
+- **实现层次 / 复现条件：** vLLM / CUDA Graph 运行时；初始化画像及恢复状态需与目标模型、GPU 和软件环境匹配，论文实验使用 A100。
+- **核验边界：** 2026-11-13 依据作者公开的 ASPLOS 2025 PDF、首页 DOI 与 artifact 附录核验。ACM PDF 直链返回 403，采用作者托管的同 DOI 版本；未运行实验。
 
 
 # 训练卸载与 GPU–CPU–存储层级

@@ -5,11 +5,12 @@
 ## 时间范围
 
 - 检索 / 核验日期：**2026-10-10（Asia/Shanghai）**。
+- 增补核验日期：**2026-11-13（Asia/Macao）**；仅核验新增的 Medusa 与 UMA Memory Sharing / libumsh，未重新核验其余条目，原检索窗口保持不变。
 - “近五年”采用滚动窗口：**2021-10-10 至 2026-10-10**。
 - 已正式发表的论文按会议时间和正式年份归档，不按最早 arXiv 日期重复计数。
 - SC 2021 于 2021 年 11 月举行，因此 ZeRO-Infinity 与 SC 2021 UVM 分析在范围内。
 - 2021 年较早举行的会议不在窗口内；例如 HPCA 2021、ATC 2021 的相关工作可以作为历史背景，但不并入本次统计。
-- 不将尚未到来的 2026 年会议或未确认录用的预印本自动视为已发表顶会论文。
+- 不将尚未举行的会议或未确认录用的预印本自动视为已发表顶会论文；已录用但正式会议时间超出窗口的工作先放补充区。
 
 ## “顶会”的工作口径
 
@@ -21,7 +22,7 @@
 | GPU 内存直接相关的相邻领域 | MLSys、ICML、ICDE、PVLDB / VLDB |
 | 单列补充、未计入主目录 | ICS、ICPP、IISWC、PACT、ISPASS、尚未确认正式顶会归属的 arXiv 工作 |
 
-主目录 45 篇中，核心会议集合为 **41 篇**，相邻领域为 **4 篇**。若只关心与 MoonBright 同层次的机制，可按 `category` 选择 `allocator`、`uvm`、`multi_gpu`、`translation`，共 **24 篇（含 MoonBright）**。
+主目录 46 篇中，核心会议集合为 **42 篇**，相邻领域为 **4 篇**。若只关心与 MoonBright 同层次的机制，可按 `category` 选择 `allocator`、`uvm`、`multi_gpu`、`translation`，共 **24 篇（含 MoonBright）**。
 
 ## 检索路径
 
@@ -78,6 +79,8 @@
 | Grace Hopper memory study | ICPP 2024，列补充，不写成 SC |
 | PagedAttention / vLLM | 一篇论文及其系统名，不重复计数 |
 | SIRIUS | 使用论文正式标题，系统简称作为别名 |
+| Medusa | ASPLOS 2025，DOI 为 10.1145/3669940.3707285；按作者托管 PDF 核验，指服务冷启动物化工作 |
+| UMA Memory Sharing / libumsh | arXiv:2610.13125，2026-10-09 公开；arXiv 页面注明已录用 EuroSys 2027，按检索窗口先列补充区 |
 
 ## 排除规则与限制
 
@@ -86,6 +89,8 @@
 这里提供中文机制摘要和原文入口，未镜像 PDF。论文和代码的版权与许可证归原作者。公开代码链接只表示发现作者维护的入口，不表示代码可在当前驱动上运行、项目仍活跃或结果已被独立复现。
 
 链接依据检索结果与作者页面记录；部分出版社或作者网页的直接打开受限，未完成所有端点的下载验证。缺失的 `pdf_url`、`doi`、`code_url` 用 `null` 表示“本次未确认”，不表示不存在。
+
+2026-11-13 增补时已下载并核对 [UMA 论文 PDF](https://arxiv.org/pdf/2610.13125) 与 [Medusa 作者 PDF](https://minhui-xie.github.io/papers/asplos25-medusa.pdf) 的标题和页数，分别为 22 页与 16 页。Medusa 的 ACM PDF 直链返回 403；作者版本首页 DOI 与请求的出版记录一致。PDF 仅用于本次核验，仓库继续保存中文笔记及链接。
 
 ## 数据维护
 

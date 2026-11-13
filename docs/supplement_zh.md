@@ -2,9 +2,23 @@
 
 [返回首页](../README.md) · [主目录](papers_zh.md)
 
-以下 9 条记录用于补足与 MoonBright 高度相关的机制或平台背景，**不计入主目录 45 篇**。ICS、ICPP、IISWC、PACT、ISPASS 是相关专业会议，本次采用的主目录会议集合未包括它们；这不表示论文价值低。未确认正式顶会归属的预印本保持独立标记。
+以下 10 条记录用于补足与 MoonBright 高度相关的机制或平台背景，**不计入主目录 46 篇**。ICS、ICPP、IISWC、PACT、ISPASS 是相关专业会议，本次采用的主目录会议集合未包括它们；这不表示论文价值低。未确认正式顶会归属的预印本，以及已录用但会议时间超出检索窗口的工作，保持独立标记。
 
 DREAM 与 GPUVM 的作者和机制有联系，暂按一条文献线索呈现，并保留二者链接；没有足够证据时不宣称二者全文或版本完全相同。
+
+<a id="libumsh"></a>
+
+## UMA Memory Sharing / libumsh · arXiv 2026（页面标注已录用 EuroSys 2027）
+
+**Characterizing CPU-GPU Memory Sharing over Unified Memory Architecture**
+
+[原文](https://arxiv.org/abs/2610.13125) · [PDF](https://arxiv.org/pdf/2610.13125) · [代码](https://github.com/XpuOS/libumsh)
+
+- **核心机制：** 将 UMA 上的 CPU–GPU 共享拆分为数据传输与控制同步，比较页大小、缓存策略和一致性支持，并以 libumsh 按平台与访问语义选择正确且高效的共享实现。
+- **与 MoonBright 的关系：** 统一物理内存共享与可见性 / 同步开销的测量补充，帮助区分页表设置、缓存一致性和数据移动成本。
+- **实现层次 / 复现条件：** 真实 UMA 平台测量与运行时库；主实验覆盖 Intel Raptor / Arrow / Lunar 与 NVIDIA Orin，另扩展到 DGX Spark。
+- **发表状态：** arXiv v1 于 2026-10-09 公开，页面注明“Accepted to EuroSys 2027”。会议时间超出本仓库检索窗口，暂按 2026 年预印本列补充区；后续更新同一条记录。
+- **核验边界：** 2026-11-13 依据 arXiv 页面、22 页 PDF 与作者代码入口核验；录用状态来源为 arXiv 页面说明，未运行实验。
 
 <a id="dream"></a>
 
